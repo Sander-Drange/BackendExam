@@ -1,7 +1,6 @@
 package com.example.BackendExam.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,5 +11,20 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PartEntities {
+    @Id
+    @SequenceGenerator(
+            name = "order_sequence",
+            sequenceName = "order_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "order_sequence"
+    )
+    private Long id;
+    private String name;
 
+    public PartEntities(String name) {
+        this.name = name;
+    }
 }
