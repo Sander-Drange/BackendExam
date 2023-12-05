@@ -27,4 +27,13 @@ public class PartEntities {
     public PartEntities(String name) {
         this.name = name;
     }
+
+
+    @ManyToOne
+    @JoinColumn(name = "subassembly_id") // Foreign key column in PartEntity table
+    private Subassembly subassembly;
+
+    public void setSubassembly(Subassembly subassembly) {
+        this.subassembly = subassembly;
+    }
 }
