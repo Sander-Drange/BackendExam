@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -17,5 +20,8 @@ public class Machine {
     private Long id;
 
     private String name;
+
+    @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subassembly> subassemblies = new ArrayList<>();
 
 }
