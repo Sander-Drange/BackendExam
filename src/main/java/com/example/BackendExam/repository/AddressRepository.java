@@ -1,4 +1,4 @@
 package com.example.BackendExam.repository;
 
-public interface AddressRepository {
+public interface AddressRepository  {
 }
