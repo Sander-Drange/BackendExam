@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Address {
-}
-=======
     @Id
     @SequenceGenerator(
             name = "address_sequence",
