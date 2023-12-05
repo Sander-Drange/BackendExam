@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -22,11 +24,16 @@ public class Order {
             generator = "order_sequence"
     )
     private Long id;
-    private int customerId; // skal ha en customer, men customer har mange orders
-    private int machineId;  // skal ha flere maskiner
 
-    public Order(int customerId, int machineId) {
-        this.customerId = customerId;
-        this.machineId = machineId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @OneToMany(mappedBy = "order")
+    private List<Machine> machines;
+
+    public Order(Customer customer, List<Machine> machines) {
+        this.customer = customer;
+        this.machines = machines;
     }
 }

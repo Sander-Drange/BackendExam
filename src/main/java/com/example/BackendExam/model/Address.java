@@ -27,6 +27,10 @@ public class Address {
     private String city;
     private String country;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     public Address(String street, int streetNumber, String city, String country) {
         this.street = street;
         this.streetNumber = streetNumber;
