@@ -13,13 +13,13 @@ import lombok.Setter;
 public class Order {
     @Id
     @SequenceGenerator(
-            name = "address_sequence",
-            sequenceName = "address_sequence",
+            name = "order_sequence",
+            sequenceName = "order_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "address_sequence"
+            generator = "order_sequence"
     )
     private Long id;
     private int customerId; // skal ha en customer, men customer har mange orders
