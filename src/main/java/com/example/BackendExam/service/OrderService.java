@@ -27,7 +27,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public void deleteorder(Long orderId) {
+    public void deleteOrder(Long orderId) {
         boolean exists = orderRepository.existsById(orderId);
         if (!exists) {
             throw new IllegalStateException("order with id " + orderId + " does not exist");
@@ -44,8 +44,6 @@ public class OrderService {
 
         Order order = optionalOrder.get();
         order.setCustomer(newCustomer);
-
-        // You may need additional logic here depending on your requirements
 
         orderRepository.save(order);
     }
