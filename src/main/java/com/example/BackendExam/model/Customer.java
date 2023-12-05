@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table
@@ -30,6 +31,12 @@ public class Customer {
     private String email;
     private LocalDate dob;
     private Integer age;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Address> addresses;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orders;
 
     public Customer(String name,
                     String email,
