@@ -1,7 +1,21 @@
 package com.example.BackendExam.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Table
+@Getter
+@Setter
+@NoArgsConstructor
 public class Subassembly {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
 }
