@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubassemblyService {
@@ -20,8 +21,13 @@ public class SubassemblyService {
         return subassemblyRepository.findAll();
     }
 
-    public void addNewSubassembly(Subassembly subassembly) {
+    public Subassembly addNewSubassembly(Subassembly subassembly) {
         subassemblyRepository.save(subassembly);
+        return subassembly;
+    }
+
+    public Optional<Subassembly> findById(Long id) {
+        return subassemblyRepository.findById(id);
     }
 
     public void deleteSubassembly(Long subassemblyId) {
