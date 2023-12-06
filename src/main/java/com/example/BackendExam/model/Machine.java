@@ -21,6 +21,10 @@ public class Machine {
 
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subassembly> subassemblies = new ArrayList<>();
 
