@@ -32,7 +32,8 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<Machine> machines;
 
-    public Order(Customer customer, List<Machine> machines) {
+    public Order(Customer customer,
+                 List<Machine> machines) {
         this.customer = customer;
         this.machines = machines;
     }

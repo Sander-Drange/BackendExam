@@ -30,11 +30,13 @@ public class Address {
     private String city;
     private String country;
 
-    @ManyToMany
-    @JoinColumn(name = "customer_id")
+    @ManyToMany(mappedBy = "adresses")
     private Set<Customer> customers = new HashSet<>();
 
-    public Address(String street, int streetNumber, String city, String country) {
+    public Address(String street,
+                   int streetNumber,
+                   String city,
+                   String country) {
         this.street = street;
         this.streetNumber = streetNumber;
         this.city = city;
