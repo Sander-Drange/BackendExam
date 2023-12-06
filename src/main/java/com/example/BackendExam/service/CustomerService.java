@@ -31,7 +31,7 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    @Transactional
+    /*@Transactional
     public Customer updateCustomer(Long id, Customer customerDetails) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id " + id));
@@ -48,5 +48,5 @@ public class CustomerService {
         }
 
         return customerRepository.save(customer);
-    }
+    }*/
 }
