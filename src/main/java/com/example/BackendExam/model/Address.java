@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table
 @Getter
@@ -27,9 +30,9 @@ public class Address {
     private String city;
     private String country;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private Set<Customer> customers = new HashSet<>();
 
     public Address(String street, int streetNumber, String city, String country) {
         this.street = street;
