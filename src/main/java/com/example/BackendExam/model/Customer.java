@@ -1,13 +1,14 @@
 package com.example.BackendExam.model;
 
 import jakarta.persistence.*;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -32,8 +33,13 @@ public class Customer {
     private LocalDate dob;
     private Integer age;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Address> addresses;
+    @ManyToMany
+    @JoinTable(
+            name = "customer_address",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id")
+    )
+    private Set<Address> addresses = new HashSet<>();
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
