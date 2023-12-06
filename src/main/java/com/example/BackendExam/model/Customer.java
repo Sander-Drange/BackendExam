@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.time.Period;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table
@@ -31,6 +31,7 @@ public class Customer {
     private String name;
     private String email;
     private LocalDate dob;
+    @Transient
     private Integer age;
 
     @OneToMany(mappedBy = "customer")
@@ -41,12 +42,14 @@ public class Customer {
 
     public Customer(String name,
                     String email,
-                    LocalDate dob,
-                    Integer age) {
+                    LocalDate dob) {
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
+    }
+
+    public Integer getAge() {
+        return Period.between(dob, LocalDate.now()).getYears();
     }
 
     @Override

@@ -14,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class Address {
+
     @Id
     @SequenceGenerator(
             name = "address_sequence",
