@@ -33,13 +33,8 @@ public class Customer {
     private LocalDate dob;
     private Integer age;
 
-    @ManyToMany
-    @JoinTable(
-            name = "customer_address",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id")
-    )
-    private Set<Address> addresses = new HashSet<>();
+    @OneToMany(mappedBy = "customer")
+    private List<Address> addresses;
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
