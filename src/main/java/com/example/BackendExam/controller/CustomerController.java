@@ -45,5 +45,4 @@ public class CustomerController {
         customerService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
 }
