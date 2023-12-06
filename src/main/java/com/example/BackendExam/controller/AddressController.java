@@ -45,10 +45,10 @@ public class AddressController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{addressId}/customer/{customerId}")
+    /*@PostMapping("/{addressId}/customer/{customerId}")
     public ResponseEntity<?> addAddressToCustomer(@PathVariable Long addressId, @PathVariable Long customerId) {
         addressService.addAddressToCustomer(addressId, customerId);
         return ResponseEntity.ok().build();
-    }
+    }*/
 
 }
