@@ -32,7 +32,7 @@ public class PartEntitiesController {
     }
 
     @PostMapping(path = "{partEntityId}")
-    public void registerNewPartEntity(@RequestBody PartEntities partEntities) {
+    public void createPartEntity(@RequestBody PartEntities partEntities) {
         partEntitiesService.addNewPartEntities(partEntities);
     }
 

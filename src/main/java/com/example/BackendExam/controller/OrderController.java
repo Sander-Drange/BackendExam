@@ -2,8 +2,10 @@ package com.example.BackendExam.controller;
 
 import com.example.BackendExam.model.Customer;
 import com.example.BackendExam.model.Order;
+import com.example.BackendExam.model.Subassembly;
 import com.example.BackendExam.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,13 @@ public class OrderController {
     @GetMapping
     public List<Order> getOrders() {
         return orderService.getOrders();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        return orderService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
