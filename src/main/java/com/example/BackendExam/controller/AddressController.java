@@ -45,7 +45,6 @@ public class AddressController {
         return ResponseEntity.ok().build();
     }
 
-    // Endpoint to add an address to a customer
     @PostMapping("/{addressId}/customer/{customerId}")
     public ResponseEntity<?> addAddressToCustomer(@PathVariable Long addressId, @PathVariable Long customerId) {
         addressService.addAddressToCustomer(addressId, customerId);
