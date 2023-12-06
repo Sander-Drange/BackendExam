@@ -30,8 +30,9 @@ public class Address {
     private String city;
     private String country;
 
-    @ManyToMany(mappedBy = "adresses")
-    private Set<Customer> customers = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     public Address(String street,
                    int streetNumber,
