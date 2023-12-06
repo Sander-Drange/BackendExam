@@ -3,6 +3,7 @@ package com.example.BackendExam.controller;
 import com.example.BackendExam.model.PartEntities;
 import com.example.BackendExam.service.PartEntitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,15 @@ public class PartEntitiesController {
         return partEntitiesService.getPartEntities();
     }
 
+    @GetMapping("/{partEntityId}")
+    public ResponseEntity<PartEntities> getPartEntityById(@PathVariable Long partEntityId) {
+        return partEntitiesService.findById(partEntityId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping(path = "{partEntityId}")
-    public void registerNewPartEntity(@RequestBody PartEntities partEntities) {
+    public void createPartEntity(@RequestBody PartEntities partEntities) {
         partEntitiesService.addNewPartEntities(partEntities);
     }
 
