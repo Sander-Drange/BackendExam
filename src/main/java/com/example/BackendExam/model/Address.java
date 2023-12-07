@@ -38,9 +38,6 @@ public class Address {
     @ManyToMany(mappedBy = "addresses")
     private Set<Customer> customers = new HashSet<>();
 
-    @OneToMany(mappedBy = "deliveryAddress")
-    private List<Order> orders;
-
     public Address(String street,
                    int streetNumber,
                    String city,

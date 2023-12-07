@@ -39,7 +39,7 @@ public class CustomerConfig {
             Customer bob = new Customer(
                     "Bob",
                     "bob@gmail.com",
-                    LocalDate.of(2003, Month.JUNE, 16)
+                    LocalDate.of(1993, Month.JUNE, 16)
             );
             bob.setAddresses(Set.of(address2));
 
@@ -56,6 +56,7 @@ public class CustomerConfig {
             order2.setDeliveryAddress(address2);
 
             orderRepository.saveAll(List.of(order1, order2));
+
         };
     }
 }
