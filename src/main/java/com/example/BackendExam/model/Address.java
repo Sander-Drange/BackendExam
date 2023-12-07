@@ -1,5 +1,6 @@
 package com.example.BackendExam.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Address {
     private String city;
     private String country;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "addresses")
     private Set<Customer> customers = new HashSet<>();
 

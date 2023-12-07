@@ -1,5 +1,6 @@
 package com.example.BackendExam.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,7 @@ public class Customer {
     @Transient
     private Integer age;
 
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "customer_address",
