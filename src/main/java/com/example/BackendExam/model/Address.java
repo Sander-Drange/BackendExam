@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,14 +27,17 @@ public class Address {
             generator = "address_sequence"
     )
     private Long id;
+
     private String street;
     private int streetNumber;
     private String city;
     private String country;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @ManyToMany(mappedBy = "addresses")
+    private Set<Customer> customers = new HashSet<>();
+
+    @OneToMany(mappedBy = "deliveryAddress")
+    private List<Order> orders;
 
     public Address(String street,
                    int streetNumber,

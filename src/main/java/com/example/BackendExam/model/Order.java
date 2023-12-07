@@ -29,6 +29,10 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address deliveryAddress;
+
     @OneToMany(mappedBy = "order")
     private List<Machine> machines;
 

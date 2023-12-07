@@ -28,4 +28,6 @@ public class Machine {
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subassembly> subassemblies = new ArrayList<>();
 
+    public Machine(String name) {
+    }
 }

@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -34,8 +36,13 @@ public class Customer {
     @Transient
     private Integer age;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Address> addresses;
+    @ManyToMany
+    @JoinTable(
+            name = "customer_address",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id")
+    )
+    private Set<Address> addresses = new HashSet<>();
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders;
