@@ -1,5 +1,6 @@
 package com.example.BackendExam.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class PartEntities {
 
     @ManyToOne
     @JoinColumn(name = "subassembly_id") // Foreign key column in PartEntity table
+    @JsonIgnore
     private Subassembly subassembly;
 
     public PartEntities(String name, Subassembly subassembly) {
