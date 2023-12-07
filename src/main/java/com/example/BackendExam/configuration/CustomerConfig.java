@@ -1,11 +1,7 @@
 package com.example.BackendExam.configuration;
 
-import com.example.BackendExam.model.Address;
-import com.example.BackendExam.model.Customer;
-import com.example.BackendExam.model.Order;
-import com.example.BackendExam.repository.AddressRepository;
-import com.example.BackendExam.repository.CustomerRepository;
-import com.example.BackendExam.repository.OrderRepository;
+import com.example.BackendExam.model.*;
+import com.example.BackendExam.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +17,10 @@ public class CustomerConfig {
     CommandLineRunner commandLineRunner(
             CustomerRepository customerRepository,
             AddressRepository addressReository,
-            OrderRepository orderRepository) {
+            OrderRepository orderRepository,
+            MachineRepository machineRepository,
+            SubassemblyRepository subassemblyRepository,
+            PartEntitiesRepository partEntitiesRepository) {
 
         return args -> {
 
@@ -57,6 +56,19 @@ public class CustomerConfig {
 
             orderRepository.saveAll(List.of(order1, order2));
 
+            Machine computer = new Machine("computer");
+            Machine sewingMachine = new Machine("sewing machine");
+            machineRepository.saveAll(List.of(computer, sewingMachine));
+
+            Subassembly computerMotherboard = new Subassembly("Motherboard", computer);
+            Subassembly sewingMachineNeedle = new Subassembly("Needle Assembly", sewingMachine);
+            subassemblyRepository.saveAll(List.of(computerMotherboard, sewingMachineNeedle));
+
+            PartEntities cpu = new PartEntities("CPU", computerMotherboard);
+            PartEntities ram = new PartEntities("RAM", computerMotherboard);
+            PartEntities needle = new PartEntities("Needle", sewingMachineNeedle);
+            PartEntities footPedal = new PartEntities("Foot pedal", sewingMachineNeedle);
+            partEntitiesRepository.saveAll(List.of(cpu, ram, needle, footPedal));
         };
     }
 }
