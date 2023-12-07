@@ -29,5 +29,6 @@ public class Machine {
     private List<Subassembly> subassemblies = new ArrayList<>();
 
     public Machine(String name) {
+        this.name = name;
     }
 }

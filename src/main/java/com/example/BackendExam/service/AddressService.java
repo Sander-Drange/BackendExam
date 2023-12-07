@@ -52,7 +52,7 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    /*public void addAddressToCustomer(Long addressId, Long customerId) {
+    public void addAddressToCustomer(Long addressId, Long customerId) {
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(() -> new RuntimeException("Address not found with id: " + addressId));
         Customer customer = customerRepository.findById(customerId)
@@ -63,5 +63,5 @@ public class AddressService {
 
         customerRepository.save(customer);
         addressRepository.save(address);
-    }*/
+    }
 }
