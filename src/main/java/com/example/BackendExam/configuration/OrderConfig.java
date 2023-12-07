@@ -1,6 +1,5 @@
 package com.example.BackendExam.configuration;
 
-<<<<<<< HEAD
 import com.example.BackendExam.model.Order;
 import com.example.BackendExam.model.Customer;
 import com.example.BackendExam.model.Address;
@@ -45,7 +44,4 @@ public class OrderConfig {
             orderRepository.saveAll(List.of(order1, order2));
         };
     }
-=======
-public class OrderConfig {
->>>>>>> 57be4cc9bbb3122a98581b3a75b5afce6d5010ee
 }
