@@ -14,6 +14,7 @@ import java.util.List;
 
 @Configuration
 public class MachineConfig {
+
     @Bean
     CommandLineRunner machineDataLoader(
             MachineRepository machineRepository,
@@ -35,4 +36,5 @@ public class MachineConfig {
             partEntitiesRepository.saveAll(List.of(cpu, ram, needle, footPedal));
         };
     }
+
 }
