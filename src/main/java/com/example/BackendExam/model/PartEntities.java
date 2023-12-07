@@ -33,6 +33,11 @@ public class PartEntities {
     @JoinColumn(name = "subassembly_id") // Foreign key column in PartEntity table
     private Subassembly subassembly;
 
+    public PartEntities(String name, Subassembly subassembly) {
+        this.name = name;
+        this.subassembly = subassembly;
+    }
+
     public void setSubassembly(Subassembly subassembly) {
         this.subassembly = subassembly;
     }

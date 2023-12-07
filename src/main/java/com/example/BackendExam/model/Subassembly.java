@@ -28,6 +28,11 @@ public class Subassembly {
     @OneToMany(mappedBy = "subassembly", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PartEntities> parts = new ArrayList<>();
 
+    public Subassembly(String name, Machine machine) {
+        this.name = name;
+        this.machine = machine;
+    }
+
     public void addPartEntity(PartEntities partEntity) {
         parts.add(partEntity);
         partEntity.setSubassembly(this);
