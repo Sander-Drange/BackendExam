@@ -1,5 +1,6 @@
 package com.example.BackendExam.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Machine {
     private Order order;
 
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Subassembly> subassemblies = new ArrayList<>();
 
     public Machine(String name) {
