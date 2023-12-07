@@ -11,14 +11,4 @@ import java.util.List;
 @Configuration
 public class MachineConfig {
 
-    @Bean
-    CommandLineRunner commandLineRunnerForMachine(MachineRepository machineRepository) {
-        return args -> {
-            Machine machine1 = new Machine("Excavator");
-            Machine machine2 = new Machine("Bulldozer");
-            Machine machine3 = new Machine("Crane");
-
-            machineRepository.saveAll(List.of(machine1, machine2, machine3));
-        };
-    }
 }
