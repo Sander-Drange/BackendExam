@@ -29,8 +29,8 @@ public class CustomerConfig {
             addressRepsitory.saveAll(List.of(address1, address2));
 
             Customer michael = new Customer(
-                    "Michael",
-                    "michaelhalnik@gmail.com",
+                    "Jason",
+                    "jason@gmail.com",
                     LocalDate.of(2003, Month.AUGUST, 12)
             );
             michael.setAddresses(Set.of(address1));

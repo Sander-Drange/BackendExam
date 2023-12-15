@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -24,16 +26,24 @@ public class OrderServiceTest {
 
     @Test
     public void testGetOrders() {
-        // Mock data
         List<Order> mockOrders = List.of(new Order(), new Order());
 
-        // Mock behavior
         when(orderRepository.findAll()).thenReturn(mockOrders);
 
-        // Test
         List<Order> result = orderService.getOrders();
 
-        // Verify
         assertThat(result).isEqualTo(mockOrders);
+    }
+
+    @Test
+    public void testFindById() {
+        Long orderId = 1L;
+        Order mockOrder = new Order();
+
+        when(orderRepository.findById(orderId)).thenReturn(Optional.of(mockOrder));
+
+        Optional<Order> result = orderService.findById(orderId);
+
+        assertThat(result).contains(mockOrder);
     }
 }

@@ -44,4 +44,8 @@ public class Order {
         this.customer = customer;
         this.machines = machines;
     }
+
+    public Order(Long id) {
+        this.id = id;
+    }
 }
