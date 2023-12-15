@@ -45,10 +45,6 @@ public class AddressService {
         address.setCity(addressDetails.getCity());
         address.setCountry(addressDetails.getCountry());
 
-        // Handling related customers (if necessary)
-        // This part depends on your business logic. You might need to add/remove customers,
-        // or update the relationship in some other way.
-
         return addressRepository.save(address);
     }
 
