@@ -39,7 +39,7 @@ public class MachineService {
         machine.setName(machineDetails.getName());
 
         if (machineDetails.getSubassemblies() != null) {
-            // Replaceing the existing subassemblies with the new ones
+            // Replacing the existing subassemblies with the new ones
             machine.getSubassemblies().clear();
             machine.getSubassemblies().addAll(machineDetails.getSubassemblies());
 

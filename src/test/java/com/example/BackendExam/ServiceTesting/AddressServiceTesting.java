@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class AddressServiceTest {
+public class AddressServiceTesting {
 
     @Mock
     private AddressRepository addressRepository;
