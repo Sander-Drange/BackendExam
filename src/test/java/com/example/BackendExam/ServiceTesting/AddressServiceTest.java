@@ -9,8 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -34,4 +35,29 @@ public class AddressServiceTest {
         assertEquals(2, result.size());
         verify(addressRepository, times(1)).findAll();
     }
+
+    @Test
+    public void testFindById() {
+        Long addressId = 1L;
+        Address address = new Address();
+        when(addressRepository.findById(addressId)).thenReturn(Optional.of(address));
+
+        Optional<Address> result = addressService.findById(addressId);
+
+        assertTrue(result.isPresent());
+        assertEquals(address, result.get());
+        verify(addressRepository, times(1)).findById(addressId);
+    }
+
+    @Test
+    public void testSaveAddress() {
+        Address address = new Address();
+        when(addressRepository.save(address)).thenReturn(address);
+
+        Address savedAddress = addressService.save(address);
+
+        assertNotNull(savedAddress);
+        verify(addressRepository, times(1)).save(address);
+    }
+
 }
