@@ -31,22 +31,19 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    /*@Transactional
+    @Transactional
     public Customer updateCustomer(Long id, Customer customerDetails) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id " + id));
 
         customer.setName(customerDetails.getName());
-        // Update other simple fields as necessary
 
-        // Handling related addresses
         if (customerDetails.getAddresses() != null) {
-            // Clear current addresses and add new ones
             customer.getAddresses().clear();
             customer.getAddresses().addAll(customerDetails.getAddresses());
             customerDetails.getAddresses().forEach(address -> address.getCustomers().add(customer));
         }
 
         return customerRepository.save(customer);
-    }*/
+    }
 }
