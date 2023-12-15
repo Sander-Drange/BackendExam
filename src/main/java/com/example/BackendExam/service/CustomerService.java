@@ -1,7 +1,6 @@
 package com.example.BackendExam.service;
 
 import com.example.BackendExam.model.Customer;
-import com.example.BackendExam.repository.AddressRepository;
 import com.example.BackendExam.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
