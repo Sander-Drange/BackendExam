@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -55,14 +56,20 @@ public class PartEntityEndToEndTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(partEntityId));
     }
 
-    /*@Test
+    @Test
     public void testCreatePartEntity() throws Exception {
-        PartEntities newPartEntity = new PartEntities();
-        when(partEntitiesRepository.save(newPartEntity)).thenReturn(newPartEntity);
+        // Setup: Create and persist any necessary entities (e.g., Subassembly)
 
+        // Create a PartEntities entity or use a builder pattern
+        PartEntities newPartEntity = new PartEntities(/* initialize fields */);
+
+        // Mock the repository save method for PartEntities
+        when(partEntitiesRepository.save(any(PartEntities.class))).thenReturn(newPartEntity);
+
+        // Perform the POST request
         mockMvc.perform(MockMvcRequestBuilders.post("/api/part-entities")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newPartEntity)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-    }*/
+    }
 }

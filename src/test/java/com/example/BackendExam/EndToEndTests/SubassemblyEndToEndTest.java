@@ -1,5 +1,6 @@
 package com.example.BackendExam.EndToEndTests;
 
+import com.example.BackendExam.model.Machine;
 import com.example.BackendExam.model.Subassembly;
 import com.example.BackendExam.repository.SubassemblyRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,9 +32,9 @@ public class SubassemblyEndToEndTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    /*@Test
-    public void testGetSubassemblies() throws Exception {
-        List<Subassembly> mockSubassemblies = List.of(new Subassembly(), new Subassembly());
+    @Test
+    public void testGetAllSubassemblies() throws Exception {
+        List<Subassembly> mockSubassemblies = List.of(new Subassembly("Subassembly1", new Machine()), new Subassembly("Subassembly2", new Machine()));
         when(subassemblyRepository.findAll()).thenReturn(mockSubassemblies);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/subassemblies"))
@@ -45,7 +46,7 @@ public class SubassemblyEndToEndTest {
     @Test
     public void testGetSubassemblyById() throws Exception {
         Long subassemblyId = 1L;
-        Subassembly mockSubassembly = new Subassembly();
+        Subassembly mockSubassembly = new Subassembly("Subassembly1", new Machine());
         mockSubassembly.setId(subassemblyId);
         when(subassemblyRepository.findById(subassemblyId)).thenReturn(Optional.of(mockSubassembly));
 
@@ -57,12 +58,21 @@ public class SubassemblyEndToEndTest {
 
     @Test
     public void testCreateSubassembly() throws Exception {
-        Subassembly newSubassembly = new Subassembly();
+        Subassembly newSubassembly = new Subassembly("NewSubassembly", new Machine());
         when(subassemblyRepository.save(newSubassembly)).thenReturn(newSubassembly);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/subassemblies")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newSubassembly)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-    }*/
+    }
+
+    @Test
+    public void testDeleteSubassembly() throws Exception {
+        Long subassemblyId = 1L;
+        when(subassemblyRepository.existsById(subassemblyId)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subassemblies/{id}", subassemblyId))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }

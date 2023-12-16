@@ -37,7 +37,6 @@ public class Customer {
     @Transient
     private Integer age;
 
-    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "customer_address",

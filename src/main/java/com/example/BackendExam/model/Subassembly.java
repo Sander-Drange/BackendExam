@@ -16,7 +16,15 @@ import java.util.List;
 public class Subassembly {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "subassembly_sequence",
+            sequenceName = "subassembly_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "subassembly_sequence"
+    )
     private Long id;
 
     private String name;

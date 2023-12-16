@@ -55,7 +55,7 @@ public class OrderEndToEndTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(orderId));
     }
 
-    /*@Test
+    @Test
     public void testCreateOrder() throws Exception {
         Order newOrder = new Order(1L);
         when(orderRepository.save(newOrder)).thenReturn(newOrder);
@@ -64,5 +64,5 @@ public class OrderEndToEndTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newOrder)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-    }*/
+    }
 }
