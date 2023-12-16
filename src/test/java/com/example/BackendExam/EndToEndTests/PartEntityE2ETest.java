@@ -58,14 +58,8 @@ public class PartEntityE2ETest {
 
     @Test
     public void testCreatePartEntity() throws Exception {
-<<<<<<< HEAD
         PartEntities newPartEntity = new PartEntities();
 
-=======
-
-        PartEntities newPartEntity = new PartEntities();
-
->>>>>>> 755c08a71e26bbcdb44eae4155f8bfd8a57c3dc3
         when(partEntitiesRepository.save(any(PartEntities.class))).thenReturn(newPartEntity);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/part-entities")
