@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Configuration
-public class CustomerConfig {
+public class SystemConfig {
     @Bean
     CommandLineRunner commandLineRunner(
             CustomerRepository customerRepository,

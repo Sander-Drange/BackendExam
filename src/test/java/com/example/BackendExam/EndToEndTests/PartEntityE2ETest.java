@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PartEntityEndToEndTest {
+public class PartEntityE2ETest {
 
     @Autowired
     private MockMvc mockMvc;
