@@ -37,9 +37,9 @@ public class OrderE2ETest {
         when(orderRepository.findAll()).thenReturn(mockOrders);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/orders"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockOrders.size()));
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockOrders.size()));
     }
 
     @Test
@@ -50,9 +50,9 @@ public class OrderE2ETest {
         when(orderRepository.findById(orderId)).thenReturn(Optional.of(mockOrder));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/orders/{id}", orderId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(orderId));
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(orderId));
     }
 
     @Test
@@ -61,8 +61,8 @@ public class OrderE2ETest {
         when(orderRepository.save(newOrder)).thenReturn(newOrder);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/orders")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(newOrder)))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(objectMapper.writeValueAsString(newOrder)))
+               .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

@@ -38,9 +38,9 @@ public class SubassemblyE2ETest {
         when(subassemblyRepository.findAll()).thenReturn(mockSubassemblies);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/subassemblies"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockSubassemblies.size()));
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockSubassemblies.size()));
     }
 
     @Test
@@ -51,9 +51,9 @@ public class SubassemblyE2ETest {
         when(subassemblyRepository.findById(subassemblyId)).thenReturn(Optional.of(mockSubassembly));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/subassemblies/{id}", subassemblyId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(subassemblyId));
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(subassemblyId));
     }
 
     @Test
@@ -62,9 +62,9 @@ public class SubassemblyE2ETest {
         when(subassemblyRepository.save(newSubassembly)).thenReturn(newSubassembly);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/subassemblies")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(newSubassembly)))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(objectMapper.writeValueAsString(newSubassembly)))
+               .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -73,6 +73,6 @@ public class SubassemblyE2ETest {
         when(subassemblyRepository.existsById(subassemblyId)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/subassemblies/{id}", subassemblyId))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+               .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

@@ -42,6 +42,7 @@ public class AddressService {
                 .orElseThrow(() -> new RuntimeException("Address not found with id " + id));
 
         address.setStreet(addressDetails.getStreet());
+        address.setStreetNumber(addressDetails.getStreetNumber());
         address.setCity(addressDetails.getCity());
         address.setCountry(addressDetails.getCountry());
 

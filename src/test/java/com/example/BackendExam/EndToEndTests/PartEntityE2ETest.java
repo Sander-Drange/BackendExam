@@ -38,9 +38,9 @@ public class PartEntityE2ETest {
         when(partEntitiesRepository.findAll()).thenReturn(mockPartEntities);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/part-entities"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockPartEntities.size()));
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockPartEntities.size()));
     }
 
     @Test
@@ -51,25 +51,21 @@ public class PartEntityE2ETest {
         when(partEntitiesRepository.findById(partEntityId)).thenReturn(Optional.of(mockPartEntity));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/part-entities/{id}", partEntityId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(partEntityId));
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(partEntityId));
     }
 
     @Test
     public void testCreatePartEntity() throws Exception {
-        // Setup: Create and persist any necessary entities (e.g., Subassembly)
 
-        // Create a PartEntities entity or use a builder pattern
-        PartEntities newPartEntity = new PartEntities(/* initialize fields */);
+        PartEntities newPartEntity = new PartEntities();
 
-        // Mock the repository save method for PartEntities
         when(partEntitiesRepository.save(any(PartEntities.class))).thenReturn(newPartEntity);
 
-        // Perform the POST request
         mockMvc.perform(MockMvcRequestBuilders.post("/api/part-entities")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(newPartEntity)))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(objectMapper.writeValueAsString(newPartEntity)))
+               .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
