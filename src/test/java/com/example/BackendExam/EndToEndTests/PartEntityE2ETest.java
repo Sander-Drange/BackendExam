@@ -58,15 +58,10 @@ public class PartEntityE2ETest {
 
     @Test
     public void testCreatePartEntity() throws Exception {
-        // Setup: Create and persist any necessary entities (e.g., Subassembly)
+        PartEntities newPartEntity = new PartEntities();
 
-        // Create a PartEntities entity or use a builder pattern
-        PartEntities newPartEntity = new PartEntities(/* initialize fields */);
-
-        // Mock the repository save method for PartEntities
         when(partEntitiesRepository.save(any(PartEntities.class))).thenReturn(newPartEntity);
 
-        // Perform the POST request
         mockMvc.perform(MockMvcRequestBuilders.post("/api/part-entities")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newPartEntity)))

@@ -31,7 +31,7 @@ public class PartEntitiesController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping(path = "{partEntityId}")
+    @PostMapping
     public void createPartEntity(@RequestBody PartEntities partEntities) {
         partEntitiesService.addNewPartEntities(partEntities);
     }

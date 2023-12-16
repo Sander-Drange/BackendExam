@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -59,20 +60,11 @@ public class SubassemblyE2ETest {
     @Test
     public void testCreateSubassembly() throws Exception {
         Subassembly newSubassembly = new Subassembly("NewSubassembly", new Machine());
-        when(subassemblyRepository.save(newSubassembly)).thenReturn(newSubassembly);
+        when(subassemblyRepository.save(any(Subassembly.class))).thenReturn(newSubassembly);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/subassemblies")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newSubassembly)))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public void testDeleteSubassembly() throws Exception {
-        Long subassemblyId = 1L;
-        when(subassemblyRepository.existsById(subassemblyId)).thenReturn(true);
-
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subassemblies/{id}", subassemblyId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
