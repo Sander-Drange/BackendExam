@@ -37,11 +37,11 @@ public class AddressE2ETest {
         String newAddressJson = "{\"street\":\"New Street\", \"streetNumber\": 123, \"city\":\"New City\", \"country\":\"Newland\"}";
 
         mockMvc.perform(post("/api/addresses")
-                        .contentType("application/json")
-                        .content(newAddressJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.street").value("New Street"))
-                .andExpect(jsonPath("$.streetNumber").value(123));
+               .contentType("application/json")
+               .content(newAddressJson))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.street").value("New Street"))
+               .andExpect(jsonPath("$.streetNumber").value(123));
     }
 
     @Test
