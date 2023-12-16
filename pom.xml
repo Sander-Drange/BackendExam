@@ -15,7 +15,7 @@
 	<name>BackendExam</name>
 	<description>Exam-backendProgramming-2023</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>19</java.version>
 	</properties>
 	<dependencies>
 		<!-- Spring Boot Starter -->

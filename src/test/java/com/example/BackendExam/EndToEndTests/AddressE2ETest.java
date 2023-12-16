@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -33,13 +34,14 @@ public class AddressE2ETest {
     }
 
     @Test
-    public void testCreateNewAddress() throws Exception {
+    public void testCreateAddress() throws Exception {
         String newAddressJson = "{\"street\":\"New Street\", \"streetNumber\": 123, \"city\":\"New City\", \"country\":\"Newland\"}";
 
         mockMvc.perform(post("/api/addresses")
-               .contentType("application/json")
+               .contentType(MediaType.APPLICATION_JSON)
                .content(newAddressJson))
                .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                .andExpect(jsonPath("$.street").value("New Street"))
                .andExpect(jsonPath("$.streetNumber").value(123));
     }
@@ -51,5 +53,17 @@ public class AddressE2ETest {
                 .andExpect(jsonPath("$.street").exists())
                 .andExpect(jsonPath("$.city").exists())
                 .andExpect(jsonPath("$.country").exists());
+    }
+
+    @Test
+    public void testUpdateAddress() throws Exception {
+        String updateAddressJson = "{\"street\":\"Updated Street\", \"streetNumber\": 456, \"city\":\"Updated City\", \"country\":\"Updatedland\"}";
+        mockMvc.perform(put("/api/addresses/1")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(updateAddressJson))
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$.street").value("Updated Street"))
+               .andExpect(jsonPath("$.streetNumber").value(456));
     }
 }
