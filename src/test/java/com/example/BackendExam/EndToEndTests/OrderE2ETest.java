@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class OrderEndToEndTest {
+public class OrderE2ETest {
 
     @Autowired
     private MockMvc mockMvc;
