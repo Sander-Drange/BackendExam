@@ -33,6 +33,18 @@ public class AddressE2ETest {
     }
 
     @Test
+    public void testCreateNewAddress() throws Exception {
+        String newAddressJson = "{\"street\":\"New Street\", \"streetNumber\": 123, \"city\":\"New City\", \"country\":\"Newland\"}";
+
+        mockMvc.perform(post("/api/addresses")
+                        .contentType("application/json")
+                        .content(newAddressJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.street").value("New Street"))
+                .andExpect(jsonPath("$.streetNumber").value(123));
+    }
+
+    @Test
     public void testGetAddress() throws Exception {
         mockMvc.perform(get("/api/addresses/1"))
                 .andExpect(status().isOk())
