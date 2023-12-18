@@ -1,7 +1,6 @@
 package com.example.BackendExam.service;
 
 import com.example.BackendExam.model.PartEntities;
-import com.example.BackendExam.model.Subassembly;
 import com.example.BackendExam.repository.PartEntitiesRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

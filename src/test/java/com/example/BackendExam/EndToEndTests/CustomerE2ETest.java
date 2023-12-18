@@ -39,7 +39,6 @@ public class CustomerE2ETest {
 
     @Test
     public void testGetCustomerById() throws Exception {
-        // Assuming a customer with ID 1 exists
         mockMvc.perform(get("/api/customers/1")
                .accept(MediaType.APPLICATION_JSON))
                .andExpect(status().isOk())

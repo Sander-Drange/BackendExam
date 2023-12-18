@@ -1,4 +1,5 @@
 package com.example.BackendExam.ServiceTesting;
+
 import com.example.BackendExam.model.Machine;
 import com.example.BackendExam.repository.MachineRepository;
 import com.example.BackendExam.service.MachineService;
@@ -9,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest

@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,14 +1,11 @@
 package com.example.BackendExam.controller;
 
-import com.example.BackendExam.model.Customer;
 import com.example.BackendExam.model.Machine;
 import com.example.BackendExam.service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/machines")
