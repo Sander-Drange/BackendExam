@@ -30,12 +30,11 @@ public class Subassembly {
 
     private String name;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "machine_id")
+    @JsonBackReference
     private Machine machine;
 
-    @JsonBackReference
     @OneToMany(mappedBy = "subassembly", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PartEntities> parts = new ArrayList<>();
 
@@ -53,5 +52,4 @@ public class Subassembly {
         parts.remove(partEntity);
         partEntity.setSubassembly(null);
     }
-
 }

@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class PartEntityServiceTest {
+public class PartEntityServiceTesting {
 
     @Mock
     private PartEntitiesRepository partEntityRepository;

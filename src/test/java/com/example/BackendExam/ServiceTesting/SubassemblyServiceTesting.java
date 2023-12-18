@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class SubassemblyServiceTest {
+public class SubassemblyServiceTesting {
 
     @Mock
     private SubassemblyRepository subassemblyRepository;

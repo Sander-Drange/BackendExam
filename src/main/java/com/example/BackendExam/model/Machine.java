@@ -1,6 +1,7 @@
 package com.example.BackendExam.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,13 +25,24 @@ public class Machine {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonBackReference
     private Order order;
 
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Subassembly> subassemblies = new ArrayList<>();
 
     public Machine(String name) {
         this.name = name;
+    }
+
+    public void addSubassembly(Subassembly subassembly) {
+        subassemblies.add(subassembly);
+        subassembly.setMachine(this);
+    }
+
+    public void removeSubassembly(Subassembly subassembly) {
+        subassemblies.remove(subassembly);
+        subassembly.setMachine(null);
     }
 }

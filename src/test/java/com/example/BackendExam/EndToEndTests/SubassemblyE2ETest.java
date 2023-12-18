@@ -2,10 +2,11 @@ package com.example.BackendExam.EndToEndTests;
 
 import com.example.BackendExam.model.Machine;
 import com.example.BackendExam.model.Subassembly;
-import com.example.BackendExam.repository.SubassemblyRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.BackendExam.service.SubassemblyService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,71 +14,76 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
 public class SubassemblyE2ETest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private SubassemblyRepository subassemblyRepository;
+    private SubassemblyService subassemblyService;
+
+    private Subassembly subassembly1;
+    private Subassembly subassembly2;
+
+    @BeforeEach
+    public void setup() {
+        Machine machine = new Machine("Machine1");
+        subassembly1 = new Subassembly("Subassembly1", machine);
+        subassembly2 = new Subassembly("Subassembly2", machine);
+    }
 
     @Test
     public void testGetAllSubassemblies() throws Exception {
-        List<Subassembly> mockSubassemblies = List.of(new Subassembly("Subassembly1", new Machine()), new Subassembly("Subassembly2", new Machine()));
-        when(subassemblyRepository.findAll()).thenReturn(mockSubassemblies);
+        List<Subassembly> subassemblies = List.of(subassembly1, subassembly2);
+        Mockito.when(subassemblyService.getSubassemblies()).thenReturn(subassemblies);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/subassemblies"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockSubassemblies.size()));
+        mockMvc.perform(get("/api/subassemblies"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", is(subassembly1.getName())))
+                .andExpect(jsonPath("$[1].name", is(subassembly2.getName())));
     }
 
     @Test
     public void testGetSubassemblyById() throws Exception {
-        Long subassemblyId = 1L;
-        Subassembly mockSubassembly = new Subassembly("Subassembly1", new Machine());
-        mockSubassembly.setId(subassemblyId);
-        when(subassemblyRepository.findById(subassemblyId)).thenReturn(Optional.of(mockSubassembly));
+        Long id = 1L;
+        Mockito.when(subassemblyService.findById(id)).thenReturn(Optional.of(subassembly1));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/subassemblies/{id}", subassemblyId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(subassemblyId));
+        mockMvc.perform(get("/api/subassemblies/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.name", is(subassembly1.getName())));
     }
 
     @Test
     public void testCreateSubassembly() throws Exception {
-        Subassembly newSubassembly = new Subassembly("NewSubassembly", new Machine());
+        Mockito.when(subassemblyService.addNewSubassembly(Mockito.any(Subassembly.class))).thenReturn(subassembly1);
 
-        String newSubassemblyJson = "{\"name\":\"" + newSubassembly.getName() + "\",\"machine\":{\"id\":null,\"name\":null}}";
-
-        when(subassemblyRepository.save(newSubassembly)).thenReturn(newSubassembly);
-        when(subassemblyRepository.save(any(Subassembly.class))).thenReturn(newSubassembly);
-
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/subassemblies")
+        mockMvc.perform(post("/api/subassemblies")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(newSubassemblyJson))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                        .content("{\"name\": \"Subassembly1\", \"machine\": {\"name\": \"Machine1\"}}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(subassembly1.getName())));
     }
 
     @Test
     public void testDeleteSubassembly() throws Exception {
-        Long subassemblyId = 1L;
-        when(subassemblyRepository.existsById(subassemblyId)).thenReturn(true);
+        Long id = 1L;
+        Mockito.doNothing().when(subassemblyService).deleteSubassembly(id);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subassemblies/{id}", subassemblyId))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(delete("/api/subassemblies/{id}", id))
+                .andExpect(status().isOk());
     }
 }

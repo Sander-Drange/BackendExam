@@ -14,24 +14,20 @@ import lombok.Setter;
 public class PartEntities {
     @Id
     @SequenceGenerator(
-            name = "order_sequence",
-            sequenceName = "order_sequence",
+            name = "part_entity_sequence",
+            sequenceName = "part_entity_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "order_sequence"
+            generator = "part_entity_sequence"
     )
     private Long id;
+
     private String name;
 
-    public PartEntities(String name) {
-        this.name = name;
-    }
-
-
     @ManyToOne
-    @JoinColumn(name = "subassembly_id") // Foreign key column in PartEntity table
+    @JoinColumn(name = "subassembly_id")
     @JsonIgnore
     private Subassembly subassembly;
 
