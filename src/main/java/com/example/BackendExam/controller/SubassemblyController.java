@@ -16,8 +16,10 @@ public class SubassemblyController {
     private SubassemblyService subassemblyService;
 
     @GetMapping
-    public ResponseEntity<List<Subassembly>> getAllSubassemblies() {
-        List<Subassembly> subassemblies = subassemblyService.getSubassemblies();
+    public ResponseEntity<List<Subassembly>> getAllSubassemblies(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        List<Subassembly> subassemblies = subassemblyService.getSubassemblies(page, size);
         return ResponseEntity.ok(subassemblies);
     }
 

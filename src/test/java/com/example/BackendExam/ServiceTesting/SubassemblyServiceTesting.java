@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,15 +26,18 @@ public class SubassemblyServiceTesting {
     private SubassemblyService subassemblyService;
 
     @Test
-    public void testGetSubassemblies() {
+    public void testGetSubassembliesWithPagination() {
+        int page = 0;
+        int size = 2;
         List<Subassembly> mockSubassemblies = List.of(new Subassembly(), new Subassembly());
 
-        when(subassemblyRepository.findAll()).thenReturn(mockSubassemblies);
+        when(subassemblyRepository.findAll(PageRequest.of(page, size))).thenReturn(new PageImpl<>(mockSubassemblies));
 
-        List<Subassembly> result = subassemblyService.getSubassemblies();
+        List<Subassembly> result = subassemblyService.getSubassemblies(page, size);
 
         assertThat(result).isEqualTo(mockSubassemblies);
     }
+
 
     @Test
     public void testFindById() {
