@@ -36,13 +36,6 @@ public class SubassemblyController {
         return ResponseEntity.ok(newSubassembly);
     }
 
-    /*
-    @PutMapping("/{id}")
-    public ResponseEntity<Subassembly> updateSubassembly(@PathVariable Long id, @RequestBody Subassembly subassembly) {
-        return ResponseEntity.ok(subassemblyService.update(id, subassembly));
-    }
-    */
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSubassembly(@PathVariable Long id) {
         subassemblyService.deleteSubassembly(id);

@@ -40,11 +40,9 @@ public class MachineService {
         machine.setName(machineDetails.getName());
 
         if (machineDetails.getSubassemblies() != null) {
-            // Replacing the existing subassemblies with the new ones
             machine.getSubassemblies().clear();
             machine.getSubassemblies().addAll(machineDetails.getSubassemblies());
 
-            // Setting the machine for each new subassembly
             for (Subassembly subassembly : machineDetails.getSubassemblies()) {
                 subassembly.setMachine(machine);
             }

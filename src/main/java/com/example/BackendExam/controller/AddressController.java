@@ -48,13 +48,4 @@ public class AddressController {
         addressService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
-    /*@PostMapping("/{addressId}/customer/{customerId}")
-    public ResponseEntity<?> addAddressToCustomer(@PathVariable Long addressId, @PathVariable Long customerId) {
-        addressService.addAddressToCustomer(addressId, customerId);
-        return ResponseEntity.ok().build();
-
-    Had a hard time implementing it and decided to comment it out.
-    }*/
-
 }
