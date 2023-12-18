@@ -1,5 +1,6 @@
 package com.example.BackendExam.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,10 +30,12 @@ public class Subassembly {
 
     private String name;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "machine_id")
     private Machine machine;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "subassembly", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PartEntities> parts = new ArrayList<>();
 
