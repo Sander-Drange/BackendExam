@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -62,6 +63,8 @@ public class SubassemblyE2ETest {
         String newSubassemblyJson = "{\"name\":\"" + newSubassembly.getName() + "\",\"machine\":{\"id\":null,\"name\":null}}";
 
         when(subassemblyRepository.save(newSubassembly)).thenReturn(newSubassembly);
+        when(subassemblyRepository.save(any(Subassembly.class))).thenReturn(newSubassembly);
+
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/subassemblies")
                         .contentType(MediaType.APPLICATION_JSON)

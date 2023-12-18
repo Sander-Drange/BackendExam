@@ -58,7 +58,6 @@ public class PartEntityE2ETest {
 
     @Test
     public void testCreatePartEntity() throws Exception {
-
         PartEntities newPartEntity = new PartEntities();
 
         when(partEntitiesRepository.save(any(PartEntities.class))).thenReturn(newPartEntity);
