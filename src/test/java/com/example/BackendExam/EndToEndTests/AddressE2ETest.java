@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -22,16 +24,36 @@ public class AddressE2ETest {
     private MockMvc mockMvc;
 
     @Test
+    public void testGetAllAddressesWithPagination() throws Exception {
+        int page = 0;
+        int size = 2;
+
+        mockMvc.perform(get("/api/addresses")
+                        .param("page", String.valueOf(page))
+                        .param("size", String.valueOf(size))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content.length()", greaterThanOrEqualTo(0)))
+                .andExpect(jsonPath("$.number", equalTo(page)))
+                .andExpect(jsonPath("$.size", greaterThanOrEqualTo(size)))
+                .andExpect(jsonPath("$.totalPages", greaterThanOrEqualTo(1)))
+                .andExpect(jsonPath("$.totalElements", greaterThanOrEqualTo(0)));
+    }
+
+    @Test
     public void testPreloadedAddresses() throws Exception {
         mockMvc.perform(get("/api/addresses"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].street").value("Oslostreet"))
-                .andExpect(jsonPath("$[0].city").value("Oslo"))
-                .andExpect(jsonPath("$[0].country").value("Norway"))
-                .andExpect(jsonPath("$[1].street").value("Swedenstreet"))
-                .andExpect(jsonPath("$[1].city").value("Gothenburg"))
-                .andExpect(jsonPath("$[1].country").value("Sweden"));
+                .andExpect(jsonPath("$.content[0].street").value("Oslostreet"))
+                .andExpect(jsonPath("$.content[0].city").value("Oslo"))
+                .andExpect(jsonPath("$.content[0].country").value("Norway"))
+                .andExpect(jsonPath("$.content[1].street").value("Swedenstreet"))
+                .andExpect(jsonPath("$.content[1].city").value("Gothenburg"))
+                .andExpect(jsonPath("$.content[1].country").value("Sweden"));
     }
+
 
     @Test
     public void testCreateAddress() throws Exception {

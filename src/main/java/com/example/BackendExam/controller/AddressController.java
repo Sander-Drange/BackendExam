@@ -20,7 +20,7 @@ public class AddressController {
     @GetMapping
     public ResponseEntity<Page<Address>> getAllAddresses(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "100") int size) {
+            @RequestParam(defaultValue = "10") int size) {
         Page<Address> addresses = addressService.findAll(page, size);
         return ResponseEntity.ok(addresses);
     }

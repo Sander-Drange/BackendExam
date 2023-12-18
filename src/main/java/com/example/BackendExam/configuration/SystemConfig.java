@@ -16,7 +16,7 @@ public class SystemConfig {
     @Bean
     CommandLineRunner commandLineRunner(
             CustomerRepository customerRepository,
-            AddressRepository addressRepsitory,
+            AddressRepository addressRepository,
             OrderRepository orderRepository,
             MachineRepository machineRepository,
             SubassemblyRepository subassemblyRepository,
@@ -26,7 +26,7 @@ public class SystemConfig {
 
             Address address1 = new Address ("Oslostreet", 100,"Oslo", "Norway");
             Address address2 = new Address ("Swedenstreet", 200,"Gothenburg", "Sweden");
-            addressRepsitory.saveAll(List.of(address1, address2));
+            addressRepository.saveAll(List.of(address1, address2));
 
             Customer michael = new Customer(
                     "Jason",

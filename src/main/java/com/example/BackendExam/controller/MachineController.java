@@ -20,7 +20,7 @@ public class MachineController {
     @GetMapping
     public ResponseEntity<Page<Machine>> getAllMachines(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "100") int size) {
+            @RequestParam(defaultValue = "10") int size) {
         Page<Machine> machines = machineService.findAll(page, size);
         return ResponseEntity.ok(machines);
     }
