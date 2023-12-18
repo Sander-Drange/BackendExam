@@ -22,8 +22,11 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<Order> getOrders() {
-        return orderService.getOrders();
+    public ResponseEntity<List<Order>> getOrders(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        List<Order> orders = orderService.getOrders(page, size);
+        return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{id}")
