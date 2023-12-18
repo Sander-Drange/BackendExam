@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +26,14 @@ public class PartEntityServiceTesting {
     private PartEntitiesService partEntityService;
 
     @Test
-    public void testGetPartEntities() {
+    public void testGetPartEntitiesWithPagination() {
+        int page = 0;
+        int size = 2;
         List<PartEntities> mockPartEntities = List.of(new PartEntities(), new PartEntities());
 
-        when(partEntityRepository.findAll()).thenReturn(mockPartEntities);
+        when(partEntityRepository.findAll(PageRequest.of(page, size))).thenReturn(new PageImpl<>(mockPartEntities));
 
-        List<PartEntities> result = partEntityService.getPartEntities();
+        List<PartEntities> result = partEntityService.getPartEntities(page, size);
 
         assertThat(result).isEqualTo(mockPartEntities);
     }

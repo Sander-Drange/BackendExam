@@ -44,17 +44,20 @@ public class SubassemblyE2ETest {
     }
 
     @Test
-    public void testGetAllSubassemblies() throws Exception {
+    public void testGetAllSubassembliesWithPagination() throws Exception {
+        int page = 0;
+        int size = 2;
         List<Subassembly> subassemblies = List.of(subassembly1, subassembly2);
-        Mockito.when(subassemblyService.getSubassemblies()).thenReturn(subassemblies);
+        Mockito.when(subassemblyService.getSubassemblies(page, size)).thenReturn(subassemblies);
 
-        mockMvc.perform(get("/api/subassemblies"))
+        mockMvc.perform(get("/api/subassemblies?page={page}&size={size}", page, size))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", is(subassembly1.getName())))
                 .andExpect(jsonPath("$[1].name", is(subassembly2.getName())));
     }
+
 
     @Test
     public void testGetSubassemblyById() throws Exception {

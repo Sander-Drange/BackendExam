@@ -20,8 +20,11 @@ public class PartEntitiesController {
     }
 
     @GetMapping
-    public List<PartEntities> getPartEntities() {
-        return partEntitiesService.getPartEntities();
+    public ResponseEntity<List<PartEntities>> getPartEntities(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        List<PartEntities> partEntities = partEntitiesService.getPartEntities(page, size);
+        return ResponseEntity.ok(partEntities);
     }
 
     @GetMapping("/{partEntityId}")

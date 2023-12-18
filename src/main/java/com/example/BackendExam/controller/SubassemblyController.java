@@ -16,8 +16,10 @@ public class SubassemblyController {
     private SubassemblyService subassemblyService;
 
     @GetMapping
-    public ResponseEntity<List<Subassembly>> getAllSubassemblies() {
-        List<Subassembly> subassemblies = subassemblyService.getSubassemblies();
+    public ResponseEntity<List<Subassembly>> getAllSubassemblies(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        List<Subassembly> subassemblies = subassemblyService.getSubassemblies(page, size);
         return ResponseEntity.ok(subassemblies);
     }
 
@@ -33,13 +35,6 @@ public class SubassemblyController {
         Subassembly newSubassembly = subassemblyService.addNewSubassembly(subassembly);
         return ResponseEntity.ok(newSubassembly);
     }
-
-    /*
-    @PutMapping("/{id}")
-    public ResponseEntity<Subassembly> updateSubassembly(@PathVariable Long id, @RequestBody Subassembly subassembly) {
-        return ResponseEntity.ok(subassemblyService.update(id, subassembly));
-    }
-    */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSubassembly(@PathVariable Long id) {

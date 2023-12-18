@@ -1,12 +1,14 @@
 package com.example.BackendExam.EndToEndTests;
 
 import com.example.BackendExam.repository.MachineRepository;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -65,9 +67,21 @@ public class MachineE2ETest {
 
     @Test
     public void testUpdateMachine() throws Exception {
+        String newMachineJson = "{\"name\":\"New Machine\"}";
+
+        MvcResult createResult = mockMvc.perform(post("/api/machines")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newMachineJson))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String responseContent = createResult.getResponse().getContentAsString();
+        Long machineId = Long.parseLong(JsonPath.read(responseContent, "$.id").toString());
+
         String updatedMachineJson = "{\"name\":\"Updated Machine\"}";
 
-        mockMvc.perform(put("/api/machines/1")
+        mockMvc.perform(put("/api/machines/{id}", machineId)
                .contentType(MediaType.APPLICATION_JSON)
                .content(updatedMachineJson))
                .andExpect(status().isOk())

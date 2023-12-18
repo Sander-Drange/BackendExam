@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -33,14 +35,16 @@ public class PartEntityE2ETest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testGetPartEntities() throws Exception {
+    public void testGetPartEntitiesWithPagination() throws Exception {
+        int page = 0;
+        int size = 2;
         List<PartEntities> mockPartEntities = List.of(new PartEntities(), new PartEntities());
-        when(partEntitiesRepository.findAll()).thenReturn(mockPartEntities);
+        when(partEntitiesRepository.findAll(PageRequest.of(page, size))).thenReturn(new PageImpl<>(mockPartEntities));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/part-entities"))
-               .andExpect(MockMvcResultMatchers.status().isOk())
-               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockPartEntities.size()));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/part-entities?page={page}&size={size}", page, size))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockPartEntities.size()));
     }
 
     @Test
