@@ -1,8 +1,10 @@
 package com.example.BackendExam.controller;
 
 import com.example.BackendExam.model.Address;
+import com.example.BackendExam.model.Customer;
 import com.example.BackendExam.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +18,10 @@ public class AddressController {
     private AddressService addressService;
 
     @GetMapping
-    public ResponseEntity<List<Address>> getAllAddresses() {
-        List<Address> addresses = addressService.findAll();
+    public ResponseEntity<Page<Address>> getAllAddresses(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "100") int size) {
+        Page<Address> addresses = addressService.findAll(page, size);
         return ResponseEntity.ok(addresses);
     }
 
@@ -49,6 +53,8 @@ public class AddressController {
     public ResponseEntity<?> addAddressToCustomer(@PathVariable Long addressId, @PathVariable Long customerId) {
         addressService.addAddressToCustomer(addressId, customerId);
         return ResponseEntity.ok().build();
+
+    Had a hard time implementing it and decided to comment it out.
     }*/
 
 }

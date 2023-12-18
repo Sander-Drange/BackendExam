@@ -1,8 +1,10 @@
 package com.example.BackendExam.controller;
 
+import com.example.BackendExam.model.Customer;
 import com.example.BackendExam.model.Machine;
 import com.example.BackendExam.service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +18,10 @@ public class MachineController {
     private MachineService machineService;
 
     @GetMapping
-    public ResponseEntity<List<Machine>> getAllMachines() {
-        List<Machine> machines = machineService.findAll();
+    public ResponseEntity<Page<Machine>> getAllMachines(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "100") int size) {
+        Page<Machine> machines = machineService.findAll(page, size);
         return ResponseEntity.ok(machines);
     }
 

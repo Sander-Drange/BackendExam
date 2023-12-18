@@ -4,6 +4,8 @@ import com.example.BackendExam.model.Customer;
 import com.example.BackendExam.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +13,13 @@ import java.util.Optional;
 
 @Service
 public class CustomerService {
+
     @Autowired
     private CustomerRepository customerRepository;
+
+    public Page<Customer> findAll(int page, int size) {
+        return customerRepository.findAll(PageRequest.of(page, size));
+    }
 
     public List<Customer> findAll() {
         return customerRepository.findAll();
@@ -29,6 +36,7 @@ public class CustomerService {
     public void deleteById(Long id) {
         customerRepository.deleteById(id);
     }
+
 
     @Transactional
     public Customer updateCustomer(Long id, Customer customerDetails) {

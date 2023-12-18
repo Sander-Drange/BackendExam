@@ -5,9 +5,10 @@ import com.example.BackendExam.model.Subassembly;
 import com.example.BackendExam.repository.MachineRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,8 +16,8 @@ public class MachineService {
     @Autowired
     private MachineRepository machineRepository;
 
-    public List<Machine> findAll() {
-        return machineRepository.findAll();
+    public Page<Machine> findAll(int page, int size) {
+        return machineRepository.findAll(PageRequest.of(page, size));
     }
 
     public Optional<Machine> findById(Long id) {

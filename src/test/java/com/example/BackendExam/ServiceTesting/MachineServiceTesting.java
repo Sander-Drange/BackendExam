@@ -23,19 +23,6 @@ public class MachineServiceTesting {
     private MachineService machineService;
 
     @Test
-    public void testFindAll() {
-        Machine machine1 = new Machine();
-        Machine machine2 = new Machine();
-        List<Machine> machines = Arrays.asList(machine1, machine2);
-
-        when(machineRepository.findAll()).thenReturn(machines);
-        List<Machine> result = machineService.findAll();
-
-        assertEquals(2, result.size());
-        verify(machineRepository, times(1)).findAll();
-    }
-
-    @Test
     public void testFindById() {
         Long machineId = 1L;
         Machine machine = new Machine();

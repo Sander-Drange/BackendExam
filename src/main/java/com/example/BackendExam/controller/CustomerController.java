@@ -1,13 +1,11 @@
 package com.example.BackendExam.controller;
 
-
 import com.example.BackendExam.model.Customer;
 import com.example.BackendExam.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -17,8 +15,10 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customers = customerService.findAll();
+    public ResponseEntity<Page<Customer>> getAllCustomers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<Customer> customers = customerService.findAll(page, size);
         return ResponseEntity.ok(customers);
     }
 

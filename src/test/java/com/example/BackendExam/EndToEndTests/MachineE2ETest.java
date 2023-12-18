@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -22,17 +23,27 @@ public class MachineE2ETest {
     private MachineRepository machineRepository;
 
     @Test
-    public void testGetAllMachines() throws Exception {
+    public void testGetAllMachinesWithPagination() throws Exception {
+        int page = 0;
+        int size = 2;
+
         mockMvc.perform(get("/api/machines")
-               .accept(MediaType.APPLICATION_JSON))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$").isArray());
+                        .param("page", String.valueOf(page))
+                        .param("size", String.valueOf(size))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content.length()", greaterThanOrEqualTo(0)))
+                .andExpect(jsonPath("$.number", equalTo(page)))
+                .andExpect(jsonPath("$.size", greaterThanOrEqualTo(size)))
+                .andExpect(jsonPath("$.totalPages", greaterThanOrEqualTo(1)))
+                .andExpect(jsonPath("$.totalElements", greaterThanOrEqualTo(0)));
     }
+
 
     @Test
     public void testGetMachineById() throws Exception {
-        // Assuming a machine with ID 1 exists
         mockMvc.perform(get("/api/machines/1")
                .accept(MediaType.APPLICATION_JSON))
                .andExpect(status().isOk())
@@ -66,7 +77,6 @@ public class MachineE2ETest {
 
     @Test
     public void testDeleteMachine() throws Exception {
-        // Assuming a machine with ID 1 exists and can be deleted
         mockMvc.perform(delete("/api/machines/1"))
                .andExpect(status().isOk());
     }

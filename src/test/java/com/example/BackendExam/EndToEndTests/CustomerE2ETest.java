@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -18,13 +20,22 @@ public class CustomerE2ETest {
     private MockMvc mockMvc;
 
     @Test
-    public void testGetAllCustomers() throws Exception {
+    public void testGetAllCustomersWithPagination() throws Exception {
+        int page = 0;
+        int size = 2;
+
         mockMvc.perform(get("/api/customers")
-               .accept(MediaType.APPLICATION_JSON))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$").isArray());
+                        .param("page", String.valueOf(page))
+                        .param("size", String.valueOf(size))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.totalPages", greaterThanOrEqualTo(1)))
+                .andExpect(jsonPath("$.totalElements", greaterThanOrEqualTo(0)))
+                .andExpect(jsonPath("$.size", greaterThanOrEqualTo(size)))
+                .andExpect(jsonPath("$.number", equalTo(page)));
     }
+
 
     @Test
     public void testGetCustomerById() throws Exception {

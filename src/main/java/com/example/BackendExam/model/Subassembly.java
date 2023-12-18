@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Subassembly {
-
     @Id
     @SequenceGenerator(
             name = "subassembly_sequence",
