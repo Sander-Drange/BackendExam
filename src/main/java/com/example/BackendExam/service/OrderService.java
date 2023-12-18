@@ -5,6 +5,9 @@ import com.example.BackendExam.model.Order;
 import com.example.BackendExam.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +22,10 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Order> getOrders() {
-        return orderRepository.findAll();
+    public List<Order> getOrders(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Order> orderPage = orderRepository.findAll(pageable);
+        return orderPage.getContent();
     }
 
     public Optional<Order> findById(Long id) {

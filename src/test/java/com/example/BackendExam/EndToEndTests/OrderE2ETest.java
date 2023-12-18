@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -32,15 +34,18 @@ public class OrderE2ETest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testGetOrders() throws Exception {
+    public void testGetOrdersWithPagination() throws Exception {
+        int page = 0;
+        int size = 2;
         List<Order> mockOrders = List.of(new Order(), new Order());
-        when(orderRepository.findAll()).thenReturn(mockOrders);
+        when(orderRepository.findAll(PageRequest.of(page, size))).thenReturn(new PageImpl<>(mockOrders));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/orders"))
-               .andExpect(MockMvcResultMatchers.status().isOk())
-               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockOrders.size()));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/orders?page={page}&size={size}", page, size))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(mockOrders.size()));
     }
+
 
     @Test
     public void testGetOrderById() throws Exception {
