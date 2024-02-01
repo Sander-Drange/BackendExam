@@ -2,11 +2,11 @@
 
 ## Overview
 
-Welcome to the BackendExam project, this was a collaboration with a fellow student. This project has been designed as a ordersystem for a factoryt that sells machines, the application manages the necessary entities such as Addresses, Customers, Machines, Orders, PartEntities, and Subassemblies. It's also utilizing Spring Boot, the project facilitates CRUD operations through its RESTful API endpoints.
+Welcome to the BackendExam project, this was a collaboration with a fellow student. This project has been designed as a ordersystem for a factory that sells machines, the application manages the necessary entities such as Addresses, Customers, Machines, Orders, PartEntities, and Subassemblies. It's also utilizing Spring Boot, the project facilitates CRUD operations through its RESTful API endpoints.
 
 ## Project Status
 
-It encompasses the required functionalities and meets the specified objectives. this was an exam for the third semester and achieved an A.
+It encompasses the required functionalities and meets the specified objectives needed for a basic ordering system. This was an exam for the third semester and achieved an A.
 
 ## API Endpoints
 
