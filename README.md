@@ -2,11 +2,11 @@
 
 ## Overview
 
-Welcome to the BackendExam project, and probably happy new year. This project has been designed as a ordersystem for a factorytthat sells machines, as stated in the assignemnt text, the application manages the required entities such as Addresses, Customers, Machines, Orders, PartEntities, and Subassemblies. It also utilizing Spring Boot, the project facilitates CRUD operations through its RESTful API endpoints.
+Welcome to the BackendExam project, this was a collaboration with a fellow student. This project has been designed as a ordersystem for a factoryt that sells machines, the application manages the necessary entities such as Addresses, Customers, Machines, Orders, PartEntities, and Subassemblies. It's also utilizing Spring Boot, the project facilitates CRUD operations through its RESTful API endpoints.
 
 ## Project Status
 
-This project is considered complete and is submitted as the final assignment for evaluation. It encompasses the required functionalities and meets the specified objectives.
+It encompasses the required functionalities and meets the specified objectives. this was an exam for the third semester and achieved an A.
 
 ## API Endpoints
 
@@ -76,7 +76,7 @@ Below are the API endpoints available in this project, along with examples of ho
 
 ## Dependencies
 
-This project utilizes a variety of dependencies for optimal functionality and efficiency, such as <3Lombok<3. Here's an overview of these dependencies and how we hacve integrated it in the project (mostly for our own internal reference):
+This project utilizes a variety of dependencies for optimal functionality and efficiency, such as Lombok. Here's an overview of these dependencies and how we hacve integrated it in the project (mostly for our own internal reference):
 
 - **Spring Boot Starter Web:** A core dependency for building the web application. It is used to create RESTful APIs with Spring MVC, offering a robust framework for handling web requests.
 - **Spring Boot Starter Data JPA:** This dependency is essential for ORM (Object-Relational Mapping) and database operations. It leverages the Java Persistence API to streamline database interactions.
